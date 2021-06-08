@@ -18,12 +18,14 @@
                             <Border x:Name="borderTemplate"
                                     Height="{TemplateBinding Height}" 
                                     Width="{Binding Path=ToggleWidth, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
-                                    Background="{Binding Path=UncheckedBackground, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}" 
+                                    Background="{Binding Path=UncheckedBackground, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
+                                    CornerRadius="{Binding Path=Radius, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
                                     >
                                 <Border x:Name="PART_CheckedTrack"
                                         Height="{TemplateBinding Height}"
                                         Background="{Binding Path=ChechedBackground, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
                                         HorizontalAlignment="Left"
+                                        CornerRadius="{Binding Path=Radius, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
                                         >
                                 </Border>
                             </Border>
@@ -31,12 +33,14 @@
                             <Thumb Cursor="Hand" x:Name="thumbTemplate">
                                 <Thumb.Template>
                                     <ControlTemplate>
-                                        <Ellipse 
+                                        <Rectangle 
                                             x:Name="thumb"
                                             Fill="{Binding Path=ThumbBackgroundUnchecked, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}" 
                                             Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
                                             Width="{Binding Path=Height, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}" 
                                             HorizontalAlignment="Left"
+                                            RadiusX="{Binding Path=Radius, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
+                                            RadiusY="{Binding Path=Radius, RelativeSource={RelativeSource AncestorType={x:Type local:ToggleSwitch}}}"
                                             />
                                     </ControlTemplate>
                                 </Thumb.Template>

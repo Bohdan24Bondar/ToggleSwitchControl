@@ -69,7 +69,7 @@ namespace ToggleSwitchLibrary
 
         private Thumb _switchThumb;
 
-        private Ellipse _knob;
+        private Rectangle _knob;
 
         private TextBlock _contentBlock;
 
@@ -77,15 +77,11 @@ namespace ToggleSwitchLibrary
 
         #endregion
 
-        //public double DragOffset { get; set; }
-
-        //public double CheckedOffset { get; set; }
-
-        //public double UncheckedOffset { get; set; }
-
         public double Offset { get; set; }
 
         public double MiddlePosition { get => (_fullTrack.ActualWidth - _switchThumb.ActualWidth) / 2.0; }
+
+        public double TextBlockWidth { get => ControlWidth - ToggleWidth; }
 
         static ToggleSwitch()
         {
@@ -101,7 +97,7 @@ namespace ToggleSwitchLibrary
         }
 
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(ToggleSwitch)); // todo nameof instead string
+            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(ToggleSwitch)); 
 
         public Brush ChechedBackground
         {
@@ -183,7 +179,14 @@ namespace ToggleSwitchLibrary
         public static readonly DependencyProperty ContentBlockWidthProperty =
             DependencyProperty.Register(nameof(ContentBlockWidth), typeof(double), typeof(ToggleSwitch));
 
-        #endregion
+        public double Radius
+        {
+            get { return (double)GetValue(RadiusProperty); }
+            set { SetValue(RadiusProperty, value); }
+        }
+
+        public static readonly DependencyProperty RadiusProperty =
+            DependencyProperty.Register(nameof(Radius), typeof(double), typeof(ToggleSwitch));
 
         public double ControlWidth
         {
@@ -194,6 +197,7 @@ namespace ToggleSwitchLibrary
         public static readonly DependencyProperty ControlWidthProperty =
             DependencyProperty.Register(nameof(ControlWidth), typeof(double), typeof(ToggleSwitch));
 
+        #endregion
 
         #region DisabledProperties
 
@@ -206,7 +210,7 @@ namespace ToggleSwitchLibrary
         public static readonly DependencyProperty IsDisabledBackroundProperty =
             DependencyProperty.Register(nameof(IsDisabledBackround), typeof(Brush), typeof(ToggleSwitch));
 
-        public Brush IsDisabledThumbBackground { get; set; } // todo add dependency properyty
+        public Brush IsDisabledThumbBackground { get; set; } 
 
         #endregion
 
@@ -236,7 +240,7 @@ namespace ToggleSwitchLibrary
 
             if (e.HorizontalChange < 0)
             {
-                bool isOnLeft = IsOnLeft();//todo!!!!!!!!!!!!!!!!!!!!!!!!!!!property
+                bool isOnLeft = IsOnLeft();
 
                 MoveThumb(isOnLeft);
             }
@@ -247,7 +251,7 @@ namespace ToggleSwitchLibrary
                 if (Offset == 0)
                 {
                     Canvas.SetLeft(_switchThumb, _fullTrack.ActualWidth - _switchThumb.ActualWidth);
-                    Offset = _fullTrack.ActualWidth; // todo
+                    Offset = _fullTrack.ActualWidth; 
                     IsChecked = true;
                 }
                 else
@@ -283,7 +287,7 @@ namespace ToggleSwitchLibrary
             Offset += e.HorizontalChange;
             Canvas.SetLeft(_switchThumb, Offset);
             _checkedTrack = Template.FindName(CHECKED_TRACK_NAME, this) as Border;
-            _knob = VisualTreeHelper.GetChild(_switchThumb, 0) as Ellipse;
+            _knob = VisualTreeHelper.GetChild(_switchThumb, 0) as Rectangle;
 
             if (e.HorizontalChange < 0)
             {
@@ -332,29 +336,22 @@ namespace ToggleSwitchLibrary
         {
             if (IsChecked)
             {
-                _knob = VisualTreeHelper.GetChild(_switchThumb, 0) as Ellipse;
+                _knob = VisualTreeHelper.GetChild(_switchThumb, 0) as Rectangle;
                 _knob.Fill = ThumbBackgroundChecked;
             }
             else
             {
-                _knob = VisualTreeHelper.GetChild(_switchThumb, 0) as Ellipse;
+                _knob = VisualTreeHelper.GetChild(_switchThumb, 0) as Rectangle;
                 _knob.Fill = ThumbBackgroundUnchecked;
             }
         }
 
-        private void CalculateCornerRadius(Border shape)
-        {
-            shape.CornerRadius = new CornerRadius(_fullTrack.Height / 2);
-        }
-
-        public double TextBlockWidth { get => ControlWidth - ToggleWidth; }
+        
 
         public override void OnApplyTemplate()
         {
             _fullTrack = Template.FindName(FULL_TRACK_NAME, this) as Border;
             _checkedTrack = Template.FindName(CHECKED_TRACK_NAME, this) as Border;
-            CalculateCornerRadius(_fullTrack);
-            CalculateCornerRadius(_checkedTrack);
             _switchThumb = Template.FindName(THUMB_NAME, this) as Thumb;
             _container = Template.FindName(CONTAINER_NAME, this) as Grid;
             _contentBlock = Template.FindName(TEXT_BLOCK_NAME, this) as TextBlock;
