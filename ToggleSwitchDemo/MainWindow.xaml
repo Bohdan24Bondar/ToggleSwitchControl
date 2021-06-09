@@ -7,13 +7,13 @@
         xmlns:MyNamespace="clr-namespace:ToggleSwitchLibrary;assembly=ToggleSwitchLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="White">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="1.7*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -24,20 +24,79 @@
         </Grid.RowDefinitions>
 
         <MyNamespace:ToggleSwitch
+            Grid.Column="2" 
+            Grid.Row="2"
+            UncheckedBackground="LightGray" 
+            ChechedBackground="#34eb49" 
+            ThumbBackgroundUnchecked="#6d6e6e"
+            ThumbBackgroundChecked="White"
+            ContentUnchecked="Off"
+            ContentChecked="On"
+            Foreground="Black"
+            FontWeight="Bold"
+            FontSize="25"
+            Height="60"
+            Radius="30"
+            ControlWidth="200"
+            ToggleWidth="130"
+            ContentBlockWidth="132"
+            />
+
+        <MyNamespace:ToggleSwitch
+            Grid.Column="2" 
+            Grid.Row="1"
+            UncheckedBackground="#404145" 
+            ChechedBackground="LightGray" 
+            ThumbBackgroundUnchecked="Gray"
+            ThumbBackgroundChecked="White"
+            ContentUnchecked="Dark"
+            ContentChecked="Light"
+            Foreground="Black"
+            FontWeight="Bold"
+            FontSize="25"
+            Height="70"
+            Radius="30"
+            ControlWidth="250"
+            ToggleWidth="170"
+            ContentBlockWidth="93"
+            />
+
+        <MyNamespace:ToggleSwitch
             Grid.Column="1" 
             Grid.Row="1"
             UncheckedBackground="Silver" 
             ChechedBackground="LightBlue" 
-            ThumbBackgroundUnchecked="White"
-            ThumbBackgroundChecked="BlueViolet"
-            ContentUnchecked="Off"
-            ContentChecked="On"
+            ThumbBackgroundUnchecked="Black"
+            ThumbBackgroundChecked="White"
+            ContentUnchecked="Выкл"
+            ContentChecked="Вкл"
+            FontWeight="Bold"
             Foreground="Black"
             FontSize="25"
             Height="60"
-            Radius="20"
+            Radius="15"
             ControlWidth="200"
             ToggleWidth="120"
+            ContentBlockWidth="80"
+            />
+
+        <MyNamespace:ToggleSwitch
+            Grid.Column="1" 
+            Grid.Row="2"
+            UncheckedBackground="Silver" 
+            ChechedBackground="Black" 
+            ThumbBackgroundUnchecked="#12cdde"
+            ThumbBackgroundChecked="BlueViolet"
+            ContentUnchecked="Off"
+            ContentChecked="On"
+            FontWeight="Bold"
+            Foreground="Black"
+            FontSize="25"
+            Height="50"
+            Radius="12"
+            ControlWidth="200"
+            ToggleWidth="120"
+            ContentBlockWidth="80"
             />
 
     </Grid>

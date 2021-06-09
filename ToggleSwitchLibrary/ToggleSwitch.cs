@@ -97,7 +97,7 @@ namespace ToggleSwitchLibrary
         }
 
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(ToggleSwitch)); 
+            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(ToggleSwitch), new FrameworkPropertyMetadata(OnIsCheckedChanged)); 
 
         public Brush ChechedBackground
         {
@@ -156,6 +156,41 @@ namespace ToggleSwitchLibrary
 
         public static readonly DependencyProperty ThumbBackgroundUncheckedProperty =
             DependencyProperty.Register(nameof(ThumbBackgroundUnchecked), typeof(Brush), typeof(ToggleSwitch));
+
+        #endregion
+
+        #region Events
+
+        private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (ToggleSwitch)d;
+
+            if (e.NewValue != e.OldValue)
+            {
+                if ((bool)e.NewValue)
+                {
+                    control.InvokeChecked(new RoutedEventArgs());
+                }
+                else
+                {
+                    control.InvokeUnchecked(new RoutedEventArgs());
+                }
+            }
+        }
+
+        public event RoutedEventHandler Unchecked;
+
+        protected void InvokeUnchecked(RoutedEventArgs e)
+        {
+            Unchecked?.Invoke(this, e);
+        }
+
+        public event RoutedEventHandler Checked;
+
+        protected void InvokeChecked(RoutedEventArgs e)
+        {
+            Checked?.Invoke(this, e);
+        }
 
         #endregion
 
@@ -346,8 +381,6 @@ namespace ToggleSwitchLibrary
             }
         }
 
-        
-
         public override void OnApplyTemplate()
         {
             _fullTrack = Template.FindName(FULL_TRACK_NAME, this) as Border;
@@ -355,7 +388,7 @@ namespace ToggleSwitchLibrary
             _switchThumb = Template.FindName(THUMB_NAME, this) as Thumb;
             _container = Template.FindName(CONTAINER_NAME, this) as Grid;
             _contentBlock = Template.FindName(TEXT_BLOCK_NAME, this) as TextBlock;
-            _contentBlock.Width = TextBlockWidth;
+            //_contentBlock.Width = TextBlockWidth;
             AddEventHandlers();
             base.OnApplyTemplate();
         }
